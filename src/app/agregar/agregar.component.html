@@ -1,0 +1,73 @@
+<div class="container">
+  <form [formGroup]="formularioCreado">
+    <div class="form-group">
+      <label>Nombre</label>
+      <input type="text" class="form-control" formControlName="nombre" />
+      <div
+        *ngIf="
+          formularioCreado.controls['nombre'].invalid &&
+          formularioCreado.controls['nombre'].dirty
+        "
+        class="alert alert-danger"
+        role="alert"
+      >
+        <span *ngIf="formularioCreado.controls['nombre'].errors?.required"
+          >El nombre es requerido</span
+        >
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Email</label>
+      <input type="text" class="form-control" formControlName="email" />
+      <div
+        *ngIf="
+          formularioCreado.controls['email'].invalid &&
+          formularioCreado.controls['email'].dirty
+        "
+        class="alert alert-danger"
+        role="alert"
+      >
+        <div *ngIf="formularioCreado.controls['email'].errors?.email">
+          Correo no válido
+        </div>
+        <div *ngIf="formularioCreado.controls['email'].errors?.required">
+          Correo requerido
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Password</label>
+      <input type="password" class="form-control" formControlName="password" />
+      <div
+        *ngIf="
+          formularioCreado.controls['password'].invalid &&
+          formularioCreado.controls['password'].dirty
+        "
+        class="alert alert-danger"
+        role="alert"
+      >
+        <div *ngIf="formularioCreado.controls['password'].errors?.minlength">
+          El password debe tener al menos 8 caracteres
+        </div>
+        <div *ngIf="formularioCreado.controls['password'].errors?.required">
+          Password requerido
+        </div>
+      </div>
+    </div>
+
+    <button
+      [disabled]="!formularioCreado.valid"
+      type="submit"
+      class="btn btn-primary"
+      (click)="agregar()"
+    >
+      Agregar
+    </button>
+  </form>
+  <div *ngFor="let usuario of usuarios">
+    <h4>{{ usuario.nombre }}</h4>
+    <p>{{ usuario.email }}</p>
+    <p>{{ usuario.password }}</p>
+  </div>
+</div>
